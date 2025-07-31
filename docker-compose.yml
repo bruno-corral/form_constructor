@@ -1,0 +1,37 @@
+version: '3'
+services:
+  app:
+    container_name: testeacto
+    restart: always
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    ports:
+      - '8000:80'
+    volumes:
+      - './:/app'
+    networks:
+      - app-network
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: form_constructor
+      MYSQL_USER: bruno
+      MYSQL_PASSWORD: root123
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mysql-data:
