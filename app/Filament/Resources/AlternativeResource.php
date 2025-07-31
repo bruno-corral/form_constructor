@@ -8,6 +8,7 @@ use App\Models\Alternative;
 use Filament\Forms;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\Fieldset;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -17,6 +18,7 @@ use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
 
 class AlternativeResource extends Resource
 {
@@ -24,14 +26,22 @@ class AlternativeResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?int $navigationSort = 3;
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Fieldset::make('Content')
                     ->schema([
+                        Hidden::make('user_id')
+                            ->default(Auth::user()->id),
                         Select::make('question_id')
-                            ->relationship('question', 'title')
+                            ->relationship(
+                                'question', 
+                                'title',
+                                fn ($query) => $query->where('user_id', Auth::id())
+                            )
                             ->required()
                             ->placeholder('Choose a question')
                             ->label('Question'),
@@ -94,5 +104,11 @@ class AlternativeResource extends Resource
             'create' => Pages\CreateAlternative::route('/create'),
             'edit' => Pages\EditAlternative::route('/{record}/edit'),
         ];
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->where('user_id', Auth::id());
     }
 }

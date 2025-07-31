@@ -12,6 +12,7 @@ class Alternative extends Model
     protected $table = 'alternatives';
 
     protected $fillable = [
+        'user_id',
         'question_id',
         'title',
         'is_correct',

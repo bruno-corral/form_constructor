@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('form_question_alternatives', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('form_id')->constrained()->onDelete('cascade');
             $table->foreignId('question_id')->constrained()->onDelete('cascade');
             $table->foreignId('alternative_id')->constrained()->onDelete('cascade');

@@ -8,6 +8,7 @@ use App\Models\Question;
 use BcMath\Number;
 use Filament\Forms;
 use Filament\Forms\Components\Fieldset;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -17,6 +18,7 @@ use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
 
 class QuestionResource extends Resource
 {
@@ -24,17 +26,22 @@ class QuestionResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?int $navigationSort = 2;
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Fieldset::make('Content')
                     ->schema([
+                        Hidden::make('user_id')
+                            ->default(Auth::user()->id),
                         Select::make('form_id')
                             ->relationship(
                                 'form', 
                                 'title', 
                                 fn ($query) => $query->where('is_active', true)
+                                    ->where('user_id', Auth::id())
                             )
                             ->required()
                             ->placeholder('Choose a form')
@@ -101,5 +108,11 @@ class QuestionResource extends Resource
             'create' => Pages\CreateQuestion::route('/create'),
             'edit' => Pages\EditQuestion::route('/{record}/edit'),
         ];
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->where('user_id', Auth::id());
     }
 }

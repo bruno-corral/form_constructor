@@ -12,6 +12,7 @@ class FormQuestionAlternative extends Model
     protected $table = 'form_question_alternatives';
 
     protected $fillable = [
+        'user_id',
         'form_id', 
         'question_id', 
         'alternative_id'
