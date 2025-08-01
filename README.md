@@ -11,7 +11,8 @@ Este projeto foi desenvolvido como parte do processo seletivo para a vaga de Des
 - PHP 8.3
 - Laravel 12.x
 - Filament 3
-- Docker
+- Docker 
+- Docker Compose
 - MySQL 8.x
 - GIT para versionamento do projeto
 
@@ -56,6 +57,31 @@ http://127.0.0.1:8000/admin/
 ```
 
 ---
+
+### Criando usuário
+* Para criar um usuário use o comando no terminal:
+```bash
+php artisan make:filament-user 
+```
+
+### Logando no sistema
+* Para logar no sistema entre com o e-mail e senha que foram escolhidas
+no terminal com o comando filament-user
+
+## Requisitos atendidos (conforme orientado na descrição do projeto)
+
+* Para todas as opções o usuário deve estar logado
+
+- ✅ Gerenciamento de formulários
+    ° Cadastrar com título, descrição e status, Editar e Excluir formulários
+- ✅ Gerenciamento de perguntas
+    ° Cadastrar com texto da pergunta, tipo, Editar e Excluir perguntas
+- ✅ Gerenciamento de alternativas
+    ° Cadastrar com texto da alternativa e resosta correta, Editar e Excluir perguntas
+- ✅ Resposta de Formulários
+    ° Escolhendo o formulário ativo, perguntas e alternativas de cada pergunta
+- ✅ Visualização de Respostas
+    ° Visualizar as opções escolhidas para cada formulário na listagem
 
 ## Seguindo padrões de commits baseados do site
 * https://www.conventionalcommits.org/pt-br/v1.0.0-beta.4/
