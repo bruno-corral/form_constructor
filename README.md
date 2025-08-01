@@ -77,7 +77,7 @@ no terminal com o comando filament-user
 - ✅ Gerenciamento de perguntas
     ° Cadastrar com texto da pergunta, tipo, Editar e Excluir perguntas
 - ✅ Gerenciamento de alternativas
-    ° Cadastrar com texto da alternativa e resosta correta, Editar e Excluir perguntas
+    ° Cadastrar com texto da alternativa e resposta correta, Editar e Excluir perguntas
 - ✅ Resposta de Formulários
     ° Escolhendo o formulário ativo, perguntas e alternativas de cada pergunta
 - ✅ Visualização de Respostas
